@@ -4,16 +4,17 @@ import { colors } from "./colors";
 export const TitleText = styled.Text`
   font-size: 28px;
   color: ${colors.mediumGrey};
+  margin-bottom: ${(props) => props.marginBottom || 0};
 `;
 
 export const MainText = styled.Text`
   font-size: 20px;
-  color: ${colors.jetGrey};
+  color: ${(props) => props.color || colors.jetGrey};
 `;
 
 export const SubText = styled.Text`
-  font-size: 16px;
-  color: ${colors.davysGrey};
+  font-size: ${(props) => props.fontSize || "16px"};
+  color: ${(props) => props.color || colors.davysGrey};
 `;
 
 export const LightSubText = styled(TitleText)`

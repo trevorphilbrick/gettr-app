@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React from "react";
 import { TitleText } from "../../utils/styles/typography";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -14,10 +14,16 @@ const HeaderContainer = styled.View`
   align-items: center;
   margin: 16px 24px;
 `;
-const Header = ({ data }) => {
+const Header = ({ data, navigation }) => {
   return (
     <HeaderContainer>
-      <FontAwesomeIcon icon={faArrowLeft} size={22} color={colors.mediumGrey} />
+      <Pressable onPress={() => navigation.goBack()}>
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          size={22}
+          color={colors.mediumGrey}
+        />
+      </Pressable>
       <TitleText>{data.listName}</TitleText>
       <EllipsesMenu />
     </HeaderContainer>

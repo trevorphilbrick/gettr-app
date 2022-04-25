@@ -4,8 +4,12 @@ import { Menu } from "native-base";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../../utils/styles/colors";
+import saveNewList from "../../utils/functions/saveNewList";
+import { useSelector } from "react-redux";
 
 const EllipsesMenu = () => {
+  const data = useSelector((state) => state.listitems);
+
   return (
     <Menu
       w="190"
@@ -21,14 +25,7 @@ const EllipsesMenu = () => {
         );
       }}
     >
-      <Menu.Item>Arial</Menu.Item>
-      <Menu.Item>Nunito Sans</Menu.Item>
-      <Menu.Item>Roboto</Menu.Item>
-      <Menu.Item>Poppins</Menu.Item>
-      <Menu.Item>SF Pro</Menu.Item>
-      <Menu.Item>Helvetica</Menu.Item>
-      <Menu.Item isDisabled>Sofia</Menu.Item>
-      <Menu.Item>Cookie</Menu.Item>
+      <Menu.Item onPress={() => saveNewList(data)}>Save</Menu.Item>
     </Menu>
   );
 };

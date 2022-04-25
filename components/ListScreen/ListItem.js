@@ -1,12 +1,14 @@
-import { View, Text, Image } from "react-native";
-import React from "react";
+import { View } from "react-native";
+import React, { useState } from "react";
 import { MainText, SubText, LightSubText } from "../../utils/styles/typography";
 import styled from "styled-components/native";
 import { images } from "../../resource/images";
 import RoundCheckBox from "react-native-round-checkbox";
 import { colors } from "../../utils/styles/colors";
+import { useDispatch } from "react-redux";
+import { removeListItem } from "../../redux/actions/listActions";
 
-const ListItemWrapperView = styled.View`
+const ListItemWrapperView = styled.Pressable`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,6 +39,9 @@ const ListItemIcon = styled.Image`
 `;
 
 const ListItem = ({ item }) => {
+  const [isChecked, setIsChecked] = useState(item.isChecked);
+  const dispatch = useDispatch();
+
   const renderLeftImage = (cat) => {
     switch (cat) {
       case "Meat":
@@ -47,7 +52,10 @@ const ListItem = ({ item }) => {
   };
 
   return (
-    <ListItemWrapperView key={item.id}>
+    <ListItemWrapperView
+      key={item.id}
+      onLongPress={() => dispatch(removeListItem(item))}
+    >
       <ListItemLeftContentView>
         {renderLeftImage(item.listItemCategory)}
         <View>
@@ -56,14 +64,14 @@ const ListItem = ({ item }) => {
         </View>
       </ListItemLeftContentView>
       <ListItemRightContentView>
-        <LightSubText marginRight={8}>{item.listItemQuantity}</LightSubText>
+        <LightSubText marginRight="8px">{item.listItemQuantity}</LightSubText>
         <RoundCheckBox
           size={22}
           borderColor={colors.mediumGrey}
           backgroundColor={colors.white}
           iconColor={colors.mediumGrey}
-          checked={item.isChecked}
-          onValueChange={(checked) => console.log(checked)}
+          checked={isChecked}
+          onValueChange={(checked) => setIsChecked(checked)}
         />
       </ListItemRightContentView>
     </ListItemWrapperView>
